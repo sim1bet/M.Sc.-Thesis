@@ -1,0 +1,22 @@
+#!/bin/sh
+#SBATCH --partition=CPUQ
+#SBATCH --time=100:00:00
+#SBATCH --nodes=5
+#SBATCH --ntasks-per-node=1
+#SBATCH --mem=50000
+#SBATCH --job-name="ChaosNN_Ensemble"
+#SBATCH --output=test_W_Ens-srun.out
+#SBATCH --mail-user=simonebe@stud.ntnu.no
+#SBATCH --mail-type=ALL
+
+WORKDIR=${SLURM_SUBMIT_DIR}
+cd ${WORKDIR}
+
+cd /cluster/home/simonebe/ChaosNN_Ensemble
+module purge
+module load Anaconda3/2020.07
+    source activate nx
+    conda install numba
+    python Main_ChaosNN.py
+
+uname -a
